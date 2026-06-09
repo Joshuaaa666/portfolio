@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>王艺融 · 作品集 — 具身智能 / 机器人运动控制</title>
+  <meta name="description" content="王艺融,深圳大学自动化专业本科生,聚焦强化学习驱动的机器人运动控制。研究覆盖人形、轮足、轮式三类具身平台。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #FBFAF7;
+      --bg-2:      #F2EFEA;
+      --ink:       #1A1A1A;
+      --ink-2:     #333;
+      --muted:     #6B6B6B;
+      --dim:       #9A9A9A;
+      --line:      #DCD8D2;
+      --line-soft: #ECE9E3;
+      --accent:    #8C1818;
+      --accent-2:  #C8102E;
+      --serif:     "Cormorant Garamond", "Noto Serif SC", "Source Han Serif SC", "Songti SC", Georgia, serif;
+      --serif-cn:  "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+      --sans-cn:   "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --mono:      ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif-cn);
+      font-size: 16.5px;
+      line-height: 1.78;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .15s ease; }
+    a:hover { border-bottom-color: var(--accent); }
+
+    /* layout */
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .narrow { max-width: 680px; margin: 0 auto; padding: 0 32px; }
+
+    /* nav */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251, 250, 247, 0.85);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    nav .inner {
+      max-width: 760px; margin: 0 auto;
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--sans-cn);
+      font-size: 13px;
+    }
+    nav .brand {
+      font-family: var(--serif);
+      font-size: 18px; font-weight: 500; letter-spacing: .02em;
+      color: var(--ink);
+    }
+    nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: var(--muted); border-bottom: none; }
+    nav a:hover { color: var(--accent); }
+
+    /* hero */
+    header.hero {
+      padding: 92px 0 56px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .hero .eyebrow {
+      font-family: var(--sans-cn);
+      font-size: 12px; letter-spacing: .25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 64px;
+      line-height: 1.05;
+      margin: 0 0 6px;
+      letter-spacing: -.01em;
+    }
+    .hero h1 .cn {
+      display: block;
+      font-family: var(--serif-cn);
+      font-weight: 500;
+      font-size: 38px;
+      letter-spacing: .04em;
+      color: var(--ink);
+      margin-top: 4px;
+    }
+    .hero .tagline {
+      margin-top: 22px;
+      font-style: italic;
+      font-family: var(--serif);
+      font-size: 19px;
+      color: var(--ink-2);
+    }
+    .hero .meta {
+      margin-top: 26px;
+      font-family: var(--sans-cn);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .hero .meta b { color: var(--ink); font-weight: 500; }
+    .hero .links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      font-family: var(--sans-cn);
+      font-size: 13.5px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 2px;
+      transition: all .18s ease;
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); border-bottom: 1px solid var(--accent); }
+    .btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn.primary:hover { background: #6E1212; border-color: #6E1212; color: white; }
+    .btn .arrow { font-size: 15px; line-height: 1; }
+
+    /* section */
+    section { padding: 64px 0; border-bottom: 1px solid var(--line-soft); }
+    section:last-of-type { border-bottom: none; }
+    .section-head {
+      display: flex; align-items: baseline; gap: 18px;
+      margin-bottom: 32px;
+    }
+    .section-head .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: .1em;
+    }
+    .section-head h2 {
+      font-family: var(--serif-cn);
+      font-weight: 500;
+      font-size: 26px;
+      margin: 0;
+      letter-spacing: .02em;
+    }
+    .section-head .rule {
+      flex: 1; height: 1px; background: var(--line);
+    }
+
+    p { margin: 0 0 1em; color: var(--ink-2); }
+    p.lead { font-size: 17.5px; line-height: 1.85; color: var(--ink-2); }
+
+    /* research list */
+    .interests {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px;
+      margin-top: 6px;
+      font-family: var(--sans-cn);
+      font-size: 14.5px;
+    }
+    .interests .item { display: flex; gap: 12px; line-height: 1.55; }
+    .interests .dot {
+      flex: 0 0 6px; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      margin-top: .55em;
+    }
+    .interests b { font-weight: 500; color: var(--ink); display: block; }
+    .interests span { color: var(--muted); font-size: 13.5px; }
+
+    /* project */
+    .project { padding: 28px 0; border-top: 1px solid var(--line-soft); }
+    .project:first-of-type { border-top: none; padding-top: 0; }
+    .project-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 14px;
+      font-family: var(--sans-cn);
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      margin-bottom: 10px;
+    }
+    .project-meta .tag {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .project h3 {
+      font-family: var(--serif-cn);
+      font-weight: 500;
+      font-size: 22px;
+      margin: 0 0 6px;
+      letter-spacing: .01em;
+    }
+    .project .role {
+      font-family: var(--sans-cn);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      letter-spacing: .02em;
+    }
+    .project p.intro { font-size: 15.5px; line-height: 1.8; color: var(--ink-2); margin-bottom: 12px; }
+    .project .contrib-label {
+      font-family: var(--sans-cn);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .2em;
+      margin: 14px 0 6px;
+    }
+    .project ul {
+      list-style: none; padding: 0; margin: 0;
+      font-size: 15px;
+      line-height: 1.78;
+    }
+    .project ul li {
+      padding: 6px 0 6px 22px;
+      position: relative;
+      color: var(--ink-2);
+    }
+    .project ul li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 16px;
+      width: 8px; height: 1px;
+      background: var(--accent);
+    }
+    .outcome {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--bg-2);
+      border-left: 3px solid var(--accent);
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--ink-2);
+    }
+    .outcome b {
+      font-family: var(--sans-cn);
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: .08em;
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    /* experience */
+    .exp { padding: 24px 0; border-top: 1px solid var(--line-soft); }
+    .exp:first-of-type { border-top: none; padding-top: 0; }
+    .exp-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+    .exp-head h3 {
+      font-family: var(--serif-cn);
+      font-weight: 500;
+      font-size: 19px;
+      margin: 0;
+    }
+    .exp-head .date {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .exp .role {
+      font-family: var(--sans-cn);
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .exp ul {
+      list-style: none; padding: 0; margin: 0;
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+    .exp ul li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      color: var(--ink-2);
+    }
+    .exp ul li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 14px;
+      width: 8px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* honors */
+    .honors { list-style: none; padding: 0; margin: 0; }
+    .honors li {
+      display: flex; gap: 18px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line-soft);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .honors li:first-child { border-top: none; }
+    .honors .year {
+      flex: 0 0 70px;
+      font-family: var(--mono);
+      font-size: 13.5px;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .honors .title { font-family: var(--serif-cn); color: var(--ink); }
+    .honors .sub { color: var(--muted); font-style: italic; margin-left: 8px; font-family: var(--serif-cn); }
+
+    /* summary */
+    .summary {
+      padding: 28px 28px;
+      background: var(--bg-2);
+      border-left: 3px solid var(--accent);
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--ink-2);
+      font-family: var(--serif-cn);
+      margin-top: 12px;
+    }
+
+    /* contact */
+    .contact-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 12px;
+    }
+    .contact-block .label {
+      font-family: var(--sans-cn);
+      font-size: 11.5px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .contact-block .value {
+      font-family: var(--serif-cn);
+      font-size: 16px;
+      color: var(--ink);
+    }
+    .contact-block .value a { color: var(--ink); border-bottom: 1px solid var(--line); }
+    .contact-block .value a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* footer */
+    footer {
+      padding: 40px 0 56px;
+      border-top: 1px solid var(--line-soft);
+      font-family: var(--sans-cn);
+      font-size: 12.5px;
+      color: var(--dim);
+      text-align: center;
+    }
+    footer .sep { margin: 0 8px; }
+
+    /* responsive */
+    @media (max-width: 640px) {
+      nav ul { gap: 14px; }
+      .hero { padding: 56px 0 36px; }
+      .hero h1 { font-size: 44px; }
+      .hero h1 .cn { font-size: 30px; }
+      .interests { grid-template-columns: 1fr; gap: 12px; }
+      .contact-block { grid-template-columns: 1fr; gap: 18px; }
+      .section-head { gap: 12px; }
+      .section-head h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="inner">
+      <span class="brand">王艺融</span>
+      <ul>
+        <li><a href="#about">简介</a></li>
+        <li><a href="#research">方向</a></li>
+        <li><a href="#projects">项目</a></li>
+        <li><a href="#experience">实习</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">MSc Application Portfolio · 2026</div>
+      <h1>
+        Wang Yirong
+        <span class="cn">王艺融</span>
+      </h1>
+      <p class="tagline">Reinforcement Learning &nbsp;·&nbsp; Embodied Intelligence &nbsp;·&nbsp; Robot Motion Control</p>
+      <div class="meta">
+        <div><b>深圳大学</b> &nbsp;·&nbsp; 机电与控制工程学院 &nbsp;·&nbsp; 自动化专业(本科)&nbsp;·&nbsp; 2027 届</div>
+        <div>均分 80 / 100 &nbsp;·&nbsp; <a href="mailto:joushuaaaaaa@qq.com">joushuaaaaaa@qq.com</a></div>
+      </div>
+      <div class="links">
+        <a class="btn primary" href="王艺融_作品集_具身智能.pptx" download>
+          下载作品集 PPT <span class="arrow">↓</span>
+        </a>
+        <a class="btn" href="#projects">查看项目 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">01</span>
+        <h2>个人简介</h2>
+        <span class="rule"></span>
+      </div>
+      <p class="lead">
+        深圳大学自动化专业本科生(2023 级),聚焦<b>强化学习驱动的机器人运动控制</b>,研究方向覆盖人形、轮足、轮式三类具身平台。在三段项目与两段实习中完成了从大规模仿真训练到真机部署的完整链路,致力于在仿真到真实迁移(Sim-to-Real)这一关键环节推进具身智能的工程落地。
+      </p>
+      <p class="lead">
+        长期参与高强度团队任务——担任华为智能基座硬件部部长、带队获得 2025 全国人工智能大赛二等奖,也在中核 / 南科大 / 星辰通用等校企合作中负责机器人运控的核心算法与现场调试。
+      </p>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">02</span>
+        <h2>研究方向</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="interests">
+        <div class="item">
+          <div class="dot"></div>
+          <div><b>强化学习运动控制</b><span>PPO / iFSQ / WBC · Isaac Lab 大规模仿真训练</span></div>
+        </div>
+        <div class="item">
+          <div class="dot"></div>
+          <div><b>Sim-to-Real 真机部署</b><span>领域随机化 · 参数标定 · ONNX 部署链路</span></div>
+        </div>
+        <div class="item">
+          <div class="dot"></div>
+          <div><b>具身感知—决策—控制闭环</b><span>SLAM / Nav2 / HD-SLAM · 分层 VLA 架构</span></div>
+        </div>
+        <div class="item">
+          <div class="dot"></div>
+          <div><b>跨平台运控算法迁移</b><span>人形 → 轮足 → 轮式 全身控制策略复用</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">03</span>
+        <h2>核心项目</h2>
+        <span class="rule"></span>
+      </div>
+
+      <article class="project">
+        <div class="project-meta">
+          <span class="tag">PROJECT 01</span>
+          <span>·</span>
+          <span>第 27 届中国机器人及人工智能大赛</span>
+          <span>·</span>
+          <span>机器人应用赛(智能驾驶方向)</span>
+        </div>
+        <h3>无人驾驶竞速车智能导航</h3>
+        <div class="role">角色 · 队长(带领 4 人团队,负责方案规划、技术路线决策与最终调试)</div>
+        <p class="intro">作为队长,带领团队基于 ROS2 + Nav2 从零搭建无人竞速车自主导航系统,打通感知—决策—控制全链路,参加全国级机器人比赛。</p>
+        <div class="contrib-label">核心贡献</div>
+        <ul>
+          <li>实现 SLAM 建图与全局 / 局部规划,完成 30–50 m 复杂赛道(折弯、环形、锥桶)的端到端自主导航。</li>
+          <li>自研 YOLO + OpenCV 视觉模块,实现红绿灯与人行道精准识别,配合 3 秒强制停车规则引擎显著降低违规罚时。</li>
+          <li>完成激光雷达 / IMU / 编码器多传感器融合 + Nav2 参数调优,系统稳定性在队内测试中明显提升。</li>
+        </ul>
+        <div class="outcome"><b>成果</b>国赛二等奖 · 打通感知到控制的工程闭环,夯实智能驾驶全栈能力。</div>
+      </article>
+
+      <article class="project">
+        <div class="project-meta">
+          <span class="tag">PROJECT 02</span>
+          <span>·</span>
+          <span>与中核集团合作</span>
+          <span>·</span>
+          <span>广东省攀登计划资助</span>
+          <span>·</span>
+          <span>挑战杯学术赛道省赛</span>
+        </div>
+        <h3>天眼地足 · 核电站地空协同智慧巡检</h3>
+        <div class="role">角色 · 核心成员 / 轮足机器人运动控制 & 强化学习负责人</div>
+        <p class="intro">面向核电站高辐射、狭窄空间等极端环境,开发轮足机器人 + 背载无人机协同巡检系统,主导轮足平台的运动控制与强化学习落地。</p>
+        <div class="contrib-label">核心贡献</div>
+        <ul>
+          <li>实现轮足复合运动:2 m/s 轮式高速移动 + 足式越障爬楼(25 cm 障碍、60° 楼梯)的动态智能切换。</li>
+          <li>基于 PPO 训练轮足"运动小脑",真机上完成高辐射、狭窄空间中的稳定行走、动态平衡与姿态恢复。</li>
+          <li>搭建分层决策架构:上层 HD-SLAM 感知 + 全局规划,下层强化学习负责局部鲁棒执行,并打通与背载无人机的协同接口。</li>
+        </ul>
+        <div class="outcome"><b>成果</b>RL 策略由人形迁移至轮足平台,验证了运控算法的跨平台可复用性。</div>
+      </article>
+
+      <article class="project">
+        <div class="project-meta">
+          <span class="tag">PROJECT 03</span>
+          <span>·</span>
+          <span>全球人形机器人自由格斗联赛</span>
+          <span>·</span>
+          <span>25 自由度全身强化学习控制</span>
+        </div>
+        <h3>EngineAI T800 人形机器人全身运控</h3>
+        <div class="role">角色 · 核心成员 / 强化学习运动控制负责人</div>
+        <p class="intro">负责 EngineAI T800(25 DOF)人形机器人全身运动控制——从 Isaac Lab 仿真训练贯通至真机部署,为格斗联赛提供运动底座。</p>
+        <div class="contrib-label">核心贡献</div>
+        <ul>
+          <li>基于 PPO + iFSQ 在 Isaac Lab 训练全身策略,覆盖行走、平衡、姿态切换与摔倒恢复。</li>
+          <li>经多轮 Sim-to-Real 迭代(领域随机化、参数标定),将 ONNX 策略部署至 T800 真机,完成行走、格斗动作过渡与摔倒自主起身。</li>
+          <li>参与 8 卡分布式训练 + 175+ 动作语料库建设,提升策略在动态扰动下的泛化能力。</li>
+        </ul>
+        <div class="outcome"><b>成果</b>策略作为团队运动控制底座,支撑高强度对抗场景下的实机稳定运行。</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">04</span>
+        <h2>实习经历</h2>
+        <span class="rule"></span>
+      </div>
+
+      <article class="exp">
+        <div class="exp-head">
+          <h3>深圳中亿集团</h3>
+          <span class="date">2025 年 1 月 – 3 月</span>
+        </div>
+        <div class="role">机器人系统开发工程师(实习) · 国家级专精特新"小巨人"企业</div>
+        <ul>
+          <li>在 Unitree G1 平台上完成端到端导览机器人系统,实现讲解、导航与配送一体化运行。</li>
+          <li>开发 ROS ↔ TAIROS 云端桥接节点,打通任务下发、语音交互与状态反馈闭环。</li>
+          <li>联调 FAST-LIO 建图与全局 / 局部规划器,优化窄通道绕障与多点巡航的稳定性。</li>
+          <li>设计 G1 导览机器人与景行 D150 配送机器人之间的协同协议,实现跨平台任务触发与状态同步。</li>
+        </ul>
+      </article>
+
+      <article class="exp">
+        <div class="exp-head">
+          <h3>南科大主动智能系统实验室 × 深圳星辰通用</h3>
+          <span class="date">研究实习生</span>
+        </div>
+        <div class="role">孔贺老师课题组 · 轮式机器人 RL 运动控制 / 分层 VLA 架构小脑模块</div>
+        <ul>
+          <li>基于强化学习开发轮式机器人 Whole-Body Control 策略,实机实现稳定行走与轨迹跟踪。</li>
+          <li>在分层 VLA 架构中负责"小脑"Skill 层,将高层 VLM 指令映射为抓取、递送等原子动作。</li>
+          <li>完成 ROS Noetic + Qwen3-VL 高层规划器的实机部署与现场调优,推动产学研落地。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="honors">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">05</span>
+        <h2>荣誉与社会职务</h2>
+        <span class="rule"></span>
+      </div>
+      <ul class="honors">
+        <li>
+          <span class="year">2025</span>
+          <span><span class="title">全国人工智能大赛 · 国赛二等奖</span><span class="sub">队长</span></span>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <span><span class="title">华为智能基座 · 硬件部部长</span></span>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <span><span class="title">深圳大学 · 双创之星</span></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="summary">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">06</span>
+        <h2>个人总结</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="summary">
+        跨平台运控经验贯通——无人车 · 轮足 · 人形 · 轮式 四类具身平台;以强化学习运动控制为主线,完成感知 — 决策 — 控制闭环,并具备从仿真到真机、从研究到产业的全栈落地能力。希望在硕士阶段继续深耕具身智能,推进运控算法在复杂真实环境中的鲁棒部署。
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">07</span>
+        <h2>联系方式</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="contact-block">
+        <div>
+          <div class="label">Email</div>
+          <div class="value"><a href="mailto:joushuaaaaaa@qq.com">joushuaaaaaa@qq.com</a></div>
+        </div>
+        <div>
+          <div class="label">所在地</div>
+          <div class="value">深圳 · 中国</div>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="王艺融_作品集_具身智能.pptx" download>下载作品集 PPT <span class="arrow">↓</span></a>
+        <a class="btn" href="mailto:joushuaaaaaa@qq.com">发邮件 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 王艺融 · Wang Yirong</span>
+    <span class="sep">·</span>
+    <span>MSc Application Portfolio</span>
+  </footer>
+
+</body>
+</html>

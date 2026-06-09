@@ -1,0 +1,19 @@
+# build / dev environment
+.build/
+
+# source materials (private)
+作品集资料.docx
+答辩*.pptx
+
+# legacy versions (superseded by 具身智能.pptx)
+王艺融_作品集_中文版.pptx
+Wang_Yirong_Portfolio.pptx
+
+# internal placeholder version (not for public download)
+王艺融_作品集_具身智能_含图位.pptx
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+.~lock.*
