@@ -4,6 +4,4 @@
 
 🔗 在线浏览:Settings → Pages 启用后会自动生成链接
 
-📄 作品集 PPT 下载:[`王艺融_作品集_具身智能.pptx`](./王艺融_作品集_具身智能.pptx)
-
 📧 联系:joushuaaaaaa@qq.com

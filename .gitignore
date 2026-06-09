@@ -9,8 +9,8 @@
 王艺融_作品集_中文版.pptx
 Wang_Yirong_Portfolio.pptx
 
-# internal placeholder version (not for public download)
-王艺融_作品集_具身智能_含图位.pptx
+# all PPT files — keep private, not for public download
+*.pptx
 
 # OS / editor junk
 .DS_Store
